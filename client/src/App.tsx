@@ -1,9 +1,9 @@
-function App() {
-  return (
-    <div className="font-black flex justify-center">
-      Hello World
-    </div>
-  )
-}
+import io from "socket.io-client";
 
-export default App
+const socket = io("http://localhost:3000");
+
+const App = () => {
+  return <div>Hello socket.io</div>
+};
+
+export default App;
