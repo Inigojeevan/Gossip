@@ -1,5 +1,6 @@
 import { useState } from "react";
 import io from "socket.io-client";
+import ChatRoom from "./components/ChatRoom";
 
 const socket = io("http://localhost:3000");
 
@@ -37,6 +38,9 @@ export default function App() {
         <button className="bg-black hover:bg-violet-700 text-white font-bold py-2 px-1 rounded justify-center flex " onClick={joinRoom}>
           Join Room
         </button>
+      </div>
+      <div>
+        <ChatRoom socket = {socket} userName={name} room={room} />
       </div>
     </div>
   );
