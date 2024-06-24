@@ -15,15 +15,15 @@ export default function App() {
       setShowChat(true);
     }
   };
+
   return (
-    <div>
+    <div className="h-screen flex items-center justify-center bg-gray-100">
       {!showChat ? (
-        <>
-          <h1 className="text-3xl flex justify-center py-5 text-violet-700">
-            Gossip
-          </h1>
-          <div className="flex justify-center">
+        <div className="text-center">
+          <h1 className="text-3xl mb-8 text-violet-700 font-bold">Gossip</h1>
+          <div className="mb-4">
             <input
+              className="border border-gray-300 p-2 m-2 rounded"
               placeholder="Enter your name"
               type="text"
               onChange={(e) => {
@@ -31,6 +31,7 @@ export default function App() {
               }}
             />
             <input
+              className="border border-gray-300 p-2 m-2 rounded"
               placeholder="Enter Room ID"
               type="text"
               onChange={(e) => {
@@ -38,19 +39,15 @@ export default function App() {
               }}
             />
           </div>
-          <div className="flex justify-center items-center py-6">
-            <button
-              className="bg-black hover:bg-violet-700 text-white font-bold py-2 px-1 rounded justify-center flex "
-              onClick={joinRoom}
-            >
-              Join Room
-            </button>
-          </div>
-        </>
-      ) : (
-        <div>
-          <ChatRoom socket={socket} userName={name} room={room} />
+          <button
+            className="bg-violet-700 hover:bg-violet-800 text-white font-bold py-2 px-4 rounded"
+            onClick={joinRoom}
+          >
+            Join Room
+          </button>
         </div>
+      ) : (
+        <ChatRoom socket={socket} userName={name} room={room} />
       )}
     </div>
   );
