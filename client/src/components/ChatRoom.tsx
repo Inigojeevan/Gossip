@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Socket } from "socket.io-client";
 
 interface ChatRoomProps {
@@ -10,7 +10,7 @@ interface ChatRoomProps {
 const ChatRoom = ({ socket, userName, room }: ChatRoomProps) => {
   const [currentMessage, setCurrentMessage] = useState("");
 
-  const sendMessage = () => {
+  const sendMessage = async () => {
     if (currentMessage !== "") {
       const message = {
         room: room,
@@ -22,9 +22,21 @@ const ChatRoom = ({ socket, userName, room }: ChatRoomProps) => {
           new Date(Date.now()).getMinutes(),
       };
 
-      socket.emit("sendMessage", message);
+      await socket.emit("sendMessage", message);
+      setCurrentMessage("");
     }
   };
+
+  useEffect(() => {
+    console.log("message sent lol");
+    socket.on("receiveMessage", (message) => {
+      console.log(message);
+    });
+
+    return () => {
+      socket.off("receiveMessage");
+    };
+  }, [socket]);
 
   return (
     <div>

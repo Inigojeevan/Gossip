@@ -19,11 +19,12 @@ io.on("connection", (socket) => {
   console.log(`User Connected: ${socket.id}`);
 
   socket.on("joinRoom", (room) => {
+    socket.join(room);
     console.log(`User ${socket.id} joined room ${room}`);
   });
 
   socket.on("sendMessage", (message) => {
-    console.log(message);
+    socket.to(message.room).emit("receiveMessage", message);
   });
   socket.on("disconnect", () => {
     console.log(`User Disconnected: ${socket.id}`);
